@@ -33,7 +33,7 @@ namespace Project.Persistence.Configurations
 
 			Detail detailThird = new()
 			{
-				Id = 1,
+				Id = 3,
 				Title = faker.Lorem.Sentence(1),
 				Description = faker.Lorem.Sentence(5),
 				CategoryId = 4,

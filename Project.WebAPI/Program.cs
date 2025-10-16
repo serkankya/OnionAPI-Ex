@@ -1,4 +1,6 @@
 
+using Project.Persistence;
+
 namespace Project.WebAPI
 {
 	public class Program
@@ -20,6 +22,8 @@ namespace Project.WebAPI
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile("appsettings.json", optional: false)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+			builder.Services.AddPersistence(builder.Configuration);
 
 			var app = builder.Build();
 
