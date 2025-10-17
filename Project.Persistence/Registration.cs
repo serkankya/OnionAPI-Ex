@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Project.Application.Interfaces.Repositories;
+using Project.Application.UnitOfWorks;
 using Project.Persistence.Context;
 using Project.Persistence.Repositories;
+using Project.Persistence.UnitOfWorks;
 
 namespace Project.Persistence
 {
@@ -21,6 +23,9 @@ namespace Project.Persistence
 			});
 
 			services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
+			services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 		}
 	}
 }

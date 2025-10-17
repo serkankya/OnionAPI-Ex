@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Query;
 using Project.Application.Interfaces.Repositories;
 using Project.Domain.Common;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace Project.Persistence.Repositories
 {
@@ -16,7 +15,7 @@ namespace Project.Persistence.Repositories
 			_context = context;
 		}
 
-		private DbSet<T> Table { get => _context.Set<T>(); }
+		private DbSet<T> Table => _context.Set<T>();
 
 		public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null)
 		{
@@ -25,7 +24,7 @@ namespace Project.Persistence.Repositories
 				: Table.AsNoTracking().Where(predicate).CountAsync());
 		}
 
-		public  IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
+		public IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
 		{
 			return enableTracking
 				? Table.Where(predicate)
