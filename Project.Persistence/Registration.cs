@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Project.Application.Interfaces.Repositories;
 using Project.Persistence.Context;
+using Project.Persistence.Repositories;
 
 namespace Project.Persistence
 {
@@ -17,6 +19,8 @@ namespace Project.Persistence
 				opt.ConfigureWarnings(warnings =>
 					warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 			});
+
+			services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
 		}
 	}
 }
