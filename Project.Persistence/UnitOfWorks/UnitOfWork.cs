@@ -1,5 +1,5 @@
 ﻿using Project.Application.Interfaces.Repositories;
-using Project.Application.UnitOfWorks;
+using Project.Application.Interfaces.UnitOfWorks;
 using Project.Persistence.Context;
 using Project.Persistence.Repositories;
 

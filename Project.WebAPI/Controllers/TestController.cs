@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Project.Application.UnitOfWorks;
-using Project.Domain.Entities;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Project.Application.Features.Products.Queries;
 
 namespace Project.WebAPI.Controllers
 {
@@ -8,17 +8,20 @@ namespace Project.WebAPI.Controllers
 	[ApiController]
 	public class TestController : ControllerBase
 	{
-		private readonly IUnitOfWork _unitOfWork;
+		private readonly IMediator _mediator;
 
-		public TestController(IUnitOfWork unitOfWork)
+		public TestController(IMediator mediator)
 		{
-			_unitOfWork = unitOfWork;
+			_mediator = mediator;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> GetTest()
 		{
-			return Ok(await _unitOfWork.GetReadRepository<Product>().GetAllAsync());
+			var response = await _mediator.Send(new GetAllProductsQueryRequest());
+			return Ok(response);
 		}
+
+
 	}
 }

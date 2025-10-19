@@ -1,4 +1,5 @@
 
+using Project.Application;
 using Project.Persistence;
 
 namespace Project.WebAPI
@@ -24,6 +25,7 @@ namespace Project.WebAPI
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
 			builder.Services.AddPersistence(builder.Configuration);
+			builder.Services.AddApplication();
 
 			var app = builder.Build();
 
