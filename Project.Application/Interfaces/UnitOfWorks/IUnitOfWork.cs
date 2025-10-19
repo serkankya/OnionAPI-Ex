@@ -1,7 +1,7 @@
 ﻿using Project.Application.Interfaces.Repositories;
 using Project.Domain.Common;
 
-namespace Project.Application.UnitOfWorks
+namespace Project.Application.Interfaces.UnitOfWorks
 {
 	public interface IUnitOfWork : IAsyncDisposable
 	{
