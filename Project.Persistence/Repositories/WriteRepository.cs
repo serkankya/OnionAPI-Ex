@@ -31,6 +31,12 @@ namespace Project.Persistence.Repositories
 			return Task.CompletedTask;
 		}
 
+		public Task HardDeleteRangeAsync(IList<T> entity)
+		{
+			Table.RemoveRange(entity);
+			return Task.CompletedTask;
+		}
+
 		public Task<T> UpdateAsync(T entity)
 		{
 			Table.Update(entity);
