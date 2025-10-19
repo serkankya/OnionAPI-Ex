@@ -1,6 +1,7 @@
 
 using Project.Application;
 using Project.Persistence;
+using Project.Mapper;
 
 namespace Project.WebAPI
 {
@@ -26,6 +27,7 @@ namespace Project.WebAPI
 
 			builder.Services.AddPersistence(builder.Configuration);
 			builder.Services.AddApplication();
+			builder.Services.AddCustomMapper();
 
 			var app = builder.Build();
 
