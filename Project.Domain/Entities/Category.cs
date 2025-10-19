@@ -21,9 +21,6 @@ namespace Project.Domain.Entities
 		public int Priority { get; set; }
 
 		public ICollection<Detail> Details { get; set; }
-		public ICollection<Product> Products
-		{
-			get;
-		}
+		public ICollection<ProductCategory> ProductCategories { get; set; }
 	}
 }
