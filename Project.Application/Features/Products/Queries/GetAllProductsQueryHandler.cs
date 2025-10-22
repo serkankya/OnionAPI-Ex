@@ -29,7 +29,7 @@ namespace Project.Application.Features.Products.Queries
 			foreach (var item in map)
 				item.Price -= (item.Price * item.Discount / 100);
 
-			return map;
+			throw new Exception("Ürünler listelenirken bir hata oluştu.");
 		}
 	}
 }
