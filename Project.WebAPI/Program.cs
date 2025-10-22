@@ -2,6 +2,7 @@
 using Project.Application;
 using Project.Persistence;
 using Project.Mapper;
+using Project.Application.Exceptions;
 
 namespace Project.WebAPI
 {
@@ -38,6 +39,8 @@ namespace Project.WebAPI
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
+
+			app.ConfigureExceptionHandlingMiddleware();
 
 			app.UseAuthorization();
 
