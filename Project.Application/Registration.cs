@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Project.Application.Bases;
 using Project.Application.Behaviours;
 using Project.Application.Exceptions;
 using System.Reflection;
@@ -15,6 +16,8 @@ namespace Project.Application
 
 			services.AddTransient<ExceptionMiddleware>();
 
+			services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
+
 			services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly));
 
 			services.AddValidatorsFromAssembly(assembly);
@@ -22,6 +25,18 @@ namespace Project.Application
 			ValidatorOptions.Global.LanguageManager.Culture = new System.Globalization.CultureInfo("tr");
 
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehaviour<,>));
+		}
+
+		private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services, Assembly assembly, Type type)
+		{
+			var types = assembly.GetTypes().Where(x=>x.IsSubclassOf(type) && type != x).ToList();
+
+			foreach (var item in types)
+			{
+				services.AddTransient(item);
+			}
+
+			return services;
 		}
 	}
 }
