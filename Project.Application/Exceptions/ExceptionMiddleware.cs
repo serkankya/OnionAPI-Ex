@@ -35,8 +35,7 @@ namespace Project.Application.Exceptions
 
 			List<string> errors = new()
 			{
-			$"Bir hata oluştu. Hata mesajı : {exception.Message}",
-			$"Hata detayları : {exception.InnerException?.ToString()}"
+			$"Bir hata oluştu. Hata mesajı : {exception.Message}"
 			};
 
 			return context.Response.WriteAsync(new ExceptionModel
