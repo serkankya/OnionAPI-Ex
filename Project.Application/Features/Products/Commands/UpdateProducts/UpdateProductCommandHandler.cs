@@ -5,7 +5,7 @@ using Project.Domain.Entities;
 
 namespace Project.Application.Features.Products.Commands.UpdateProducts
 {
-	public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommandRequest>
+	public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommandRequest, Unit>
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly ICustomMapper _mapper;
@@ -16,7 +16,7 @@ namespace Project.Application.Features.Products.Commands.UpdateProducts
 			_mapper = mapper;
 		}
 
-		public async Task Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(UpdateProductCommandRequest request, CancellationToken cancellationToken)
 		{
 			var product = await _unitOfWork.GetReadRepository<Product>().GetAsync(x => x.Id == request.Id && !x.IsDeleted);
 
@@ -34,6 +34,8 @@ namespace Project.Application.Features.Products.Commands.UpdateProducts
 
 			await _unitOfWork.GetWriteRepository<Product>().UpdateAsync(map);
 			await _unitOfWork.SaveAsync();
+
+			return Unit.Value;
 		}
 	}
 }
