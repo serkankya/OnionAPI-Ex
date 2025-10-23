@@ -4,7 +4,7 @@ using Project.Domain.Entities;
 
 namespace Project.Application.Features.Products.Commands.CreateProducts
 {
-	public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest>
+	public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, Unit>
 	{
 		private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace Project.Application.Features.Products.Commands.CreateProducts
 			_unitOfWork = unitOfWork;
 		}
 
-		public async Task Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
+		public async Task<Unit> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
 		{
 			Product product = new(request.BrandId, request.Title, request.Description, request.Discount, request.Price);
 
@@ -32,6 +32,8 @@ namespace Project.Application.Features.Products.Commands.CreateProducts
 
 				await _unitOfWork.SaveAsync();
 			}
+
+			return Unit.Value;
 		}
 	}
 }

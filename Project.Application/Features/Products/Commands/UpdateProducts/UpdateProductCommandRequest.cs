@@ -2,7 +2,7 @@
 
 namespace Project.Application.Features.Products.Commands.UpdateProducts
 {
-	public class UpdateProductCommandRequest : IRequest
+	public class UpdateProductCommandRequest : IRequest<Unit>
 	{
 		public int Id { get; set; }
 		public int BrandId { get; set; }
