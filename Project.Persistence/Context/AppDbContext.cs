@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Project.Domain.Entities;
 using System.Reflection;
 
 namespace Project.Persistence.Context
 {
-	public class AppDbContext : DbContext
+	public class AppDbContext : IdentityDbContext<User,Role, Guid>
 	{
 		public AppDbContext(DbContextOptions options) : base(options)
 		{
