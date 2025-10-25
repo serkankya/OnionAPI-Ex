@@ -3,6 +3,7 @@ using Project.Application;
 using Project.Persistence;
 using Project.Mapper;
 using Project.Application.Exceptions;
+using Project.Infrastructure;
 
 namespace Project.WebAPI
 {
@@ -27,6 +28,7 @@ namespace Project.WebAPI
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
 			builder.Services.AddPersistence(builder.Configuration);
+			builder.Services.AddInfrastructure(builder.Configuration);
 			builder.Services.AddApplication();
 			builder.Services.AddCustomMapper();
 
