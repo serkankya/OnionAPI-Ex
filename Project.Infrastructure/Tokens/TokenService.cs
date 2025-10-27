@@ -6,6 +6,7 @@ using Project.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Project.Infrastructure.Tokens
@@ -52,12 +53,32 @@ namespace Project.Infrastructure.Tokens
 
 		public string GenerateRefreshToken()
 		{
-			throw new NotImplementedException();
+			var rndNumber = new byte[64];
+			using var rng = RandomNumberGenerator.Create();
+			rng.GetBytes(rndNumber);
+			return Convert.ToBase64String(rndNumber);
 		}
 
-		public ClaimsPrincipal? GetPrincipalFromExpiredToken()
+		public ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
 		{
-			throw new NotImplementedException();
+			TokenValidationParameters tokenValidationParamaters = new()
+			{
+				ValidateIssuer = false,
+				ValidateAudience = false,
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenSettings.Secret)),
+				ValidateLifetime = false
+			};
+
+			JwtSecurityTokenHandler tokenHandler = new();
+			var principal = tokenHandler.ValidateToken(token, tokenValidationParamaters, out SecurityToken securityToken);
+			if (securityToken is not JwtSecurityToken jwtSecurityToken
+				|| !jwtSecurityToken.Header.Alg
+				.Equals(SecurityAlgorithms.HmacSha256,
+				StringComparison.InvariantCultureIgnoreCase))
+				throw new SecurityTokenException("Token bulunamadı.");
+
+			return principal;
 		}
 	}
 }
