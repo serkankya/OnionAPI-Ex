@@ -50,6 +50,9 @@ namespace Project.WebAPI
 				});
 			});
 
+			builder.Services.AddHttpContextAccessor();
+			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 			// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 			builder.Services.AddOpenApi();
 
