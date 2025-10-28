@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Project.Application.Features.Products.Commands.CreateProducts;
@@ -20,6 +21,7 @@ namespace Project.WebAPI.Controllers
 		}
 
 		[HttpGet]
+		[Authorize]
 		public async Task<IActionResult> GetTest()
 		{
 			var response = await _mediator.Send(new GetAllProductsQueryRequest());
